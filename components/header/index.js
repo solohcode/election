@@ -6,13 +6,13 @@ import { Navbar } from 'flowbite-react'
 
 function Header() {
   return (
-    <div className='w-100 border-b-4 fixed-top'>
+    <div className='w-100 border-b-4 fixed-top bg-white'>
       <Navbar
         fluid={true}
         rounded={true}
         className="container-sm"
       >
-        <Navbar.Brand to="/">
+        <Navbar.Brand to="/" href='/'>
           <Image
             src={logo}
             alt="Logo"

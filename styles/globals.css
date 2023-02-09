@@ -109,3 +109,14 @@ a {
     color-scheme: dark;
   }
 } */
+
+
+/* miscellaneous  stylings */
+.bg-candidates{
+  background: url(../images/candidate.png);
+  background-size: 100% 100%;
+}
+
+.border{
+  border-color: #19A43E !important;
+}

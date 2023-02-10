@@ -12,7 +12,7 @@ function Footer() {
             <p className='text-xl font-bold'>Latest News</p>
             <Link href="/update" className='block'>Election Update</Link>
             <Link href="/candidate" className='block'>Candidates</Link>
-            <Link href="/polling_unit" className='block'>Polling Units</Link>
+            <Link href="/progressive" className='block'>Polling Units</Link>
           </div>
           <div className='col-md-4'>
             <p className='text-xl font-bold'>Media and Events</p>

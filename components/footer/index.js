@@ -6,12 +6,12 @@ import { Fade } from 'react-reveal'
 function Footer() {
   return (
     <Fade bottom>
-      <div className='w-full bg-green px-5 pt-3 text-white'>
+      <div className='w-full bg-green px-3 px-md-5 pt-3 text-white'>
         <div className='row space-y-5 md:space-y-0 pb-3'>
           <div className='col-md-4'>
             <p className='text-xl font-bold'>Latest News</p>
             <Link href="/update" className='block'>Election Update</Link>
-            <Link href="/candidates" className='block'>Candidates</Link>
+            <Link href="/candidate" className='block'>Candidates</Link>
             <Link href="/polling_unit" className='block'>Polling Units</Link>
           </div>
           <div className='col-md-4'>

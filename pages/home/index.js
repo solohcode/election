@@ -43,9 +43,11 @@ function HomePage() {
   return (
     <div className='w-full'>
       <div className='w-full'>
-        <div className='w-full'>
-          <Image alt='vote' src={slider} className="w-full h-screen" />
-        </div>
+        <Fade big>
+          <div className='w-full'>
+            <Image alt='vote' src={slider} className="w-full h-screen" />
+          </div>
+        </Fade>
 
         <div className='w-full py-10 md:p-10 container-sm'>
           <div className='row space-y-5 md:space-y-0'>
@@ -111,7 +113,7 @@ function HomePage() {
           </div>
         </div>
 
-        <div className='w-full min-h-[300px] bg-gradient-to-bl from-[#2EA7CE] to-[#51C2E7] py-3'>
+        <div className='w-full min-h-[300px] bg-gradient-to-br from-[#2EA7CE] to-[#51C2E7] py-3'>
           <Fade>
             <p className='text-red text-2xl font-bold text-center'>Voters Statistical Analysis </p>
           </Fade>

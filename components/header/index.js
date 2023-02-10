@@ -21,10 +21,10 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link href="/navbars" className='font-bold border-0'>
+          <Navbar.Link href="/update" className='font-bold border-0'>
             Election Update +
           </Navbar.Link>
-          <Navbar.Link href="/navbars" className='font-bold border-0'>
+          <Navbar.Link href="/candidate" className='font-bold border-0'>
             Candidates+
           </Navbar.Link>
           <Navbar.Link href="/navbars" className='font-bold border-0'>

@@ -1,10 +1,15 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react';
 import logo from 'images/logo.png'
 import Image from 'next/image'
 import { Navbar } from 'flowbite-react'
+import Signup from 'components/auth/register'
 
 function Header() {
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
   return (
     <div className='w-100 border-b-4 fixed-top bg-white'>
       <Navbar
@@ -30,11 +35,17 @@ function Header() {
           <Navbar.Link href="/navbars" className='font-bold border-0'>
             Sign In
           </Navbar.Link>
-          <Navbar.Link href="/navbars" className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white">
+          <Navbar.Link 
+            className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white"
+            onClick={onOpenModal}>
+            
             Sign Up
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
+
+     <Signup open={open} onCloseModal={onCloseModal} />
+
     </div>
   )
 }

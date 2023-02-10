@@ -14,6 +14,8 @@ module.exports = {
       colors: {
         red: "#ff0009",
         dark_red: "#B10013",
+        green: "#19A43E",
+        dim_green: "#0A7F29",
       }
     },
   },

@@ -1,0 +1,124 @@
+.ps-card{
+    width: 432.96px;
+    height: 234.23px;
+    background: #FFFFFF;
+    border: 1px solid #EDEDED;
+    box-shadow: 0px 6px 10px rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    padding: 20px;
+    .card-head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h6{
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28px;
+            text-transform: uppercase;
+            color: #000000;
+        }
+    }
+    span {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: #707B81;
+        width: 300px;
+        display: block;
+    }
+}
+
+.voting-card{
+    margin: 10px;
+    padding: 20px;
+    height: 592px;
+    background: linear-gradient(360deg, #165970 -115.51%, #139AC6 32.85%);
+    .line{
+        margin-top: 20px;
+    }
+    .shadow-box{
+        background: #FFFFFF;
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.28);
+        height: 215px;
+        padding: 15px;
+        .winner-box{
+            .text{
+                font-family: 'Ubuntu';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 40px;
+                line-height: 46px;
+                color: #2DA44C;
+            }
+        }
+        .runner-up-box{
+            font-family: 'Ubuntu';
+            font-style: normal;
+        }
+    }
+    .stat-summary{
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 75px 75px 0px 0px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 40px;
+        padding: 10px 57px;
+        .title{
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 23px;
+            color: #FF0000;
+        }
+        .result-box{
+            margin-top: 10px;
+            width: 100%;
+            .result{
+                font-family: 'Ubuntu';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+                color: #707B81;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        hr{
+            border: 2px dashed #FF0000;
+            width: 310px;
+            height: 0px;
+            margin-top: 12px;
+        }
+    }
+}
+
+.buttons{
+    padding: 10px;
+    .button{
+        padding: 10px;
+        text-align: center;
+        color: #FFFFFF;
+        border-radius: 4px;
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .green{
+        background: #2DA44C;
+    }
+    .red{
+        background: #FF0000;
+    }
+    .blue{
+        background: #139AC6;
+    }
+}

@@ -1,5 +1,26 @@
 import '@/styles/globals.css'
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import DefaultLayout from '../components/layouts/DefaultLayout';
+import { wrapper } from '../store/store';
+import '../styles/style.scss';
+// import 'antd/dist/antd.min.css';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function App({ Component, ...rest }) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
+  const getLayout = ((page) => <DefaultLayout children={page} />);
+  useEffect(() => {
+    setTimeout(function () {
+      document.getElementById('__next').classList.add('loaded');
+    }, 100);
+  }, []);
+
+    return (
+      <Provider store={store}>
+        {getLayout(<Component {...pageProps} />)}
+      </Provider>
+    )
 }
+
+export default App;

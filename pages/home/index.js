@@ -222,7 +222,7 @@ function HomePage() {
           </div>
           
           <Bounce bottom>
-            <div className='w-full relative py-10'>
+            <div className='w-full relative pt-10'>
               <div className='w-full md:absolute bottom-20 z-10 justify-center mx-auto flex space-x-2'>
                 <p className='text-xl font-bold text-red italic'>Vote</p>
                 <Image alt='vote' src={vote} className="img-fluid" />

@@ -16,7 +16,7 @@ function Footer() {
           </div>
           <div className='col-md-4'>
             <p className='text-xl font-bold'>Media and Events</p>
-            <Link href="/" className='block'>How to vote</Link>
+            <Link href="/news" className='block'>How to vote</Link>
           </div>
           <div className='col-md-4 space-y-3'>
             <div>

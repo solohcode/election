@@ -4,7 +4,7 @@ import ApiError from "../utils/ApiError";
 // const bcrypt = require('bcryptjs');
 
 export const createUser = async (userBody) => {
-  const { fullname, email, password } = userBody
+  const { fullname, email, password, gender, ward, pvc, memberId, phone } = userBody
   if (await User.isEmailTaken(email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
@@ -12,15 +12,18 @@ export const createUser = async (userBody) => {
     fullname,
     email,
     user_type: 'agent',
-    password
+    password,
+    ward,
+    memberId,
+    pvc,
+    gender,
+    phone
   }
   return User.create(body);
 };
 
 export const loginUser = async (email, password) =>{
   const user = await getUserByEmail(email);
-  // const pass = await bcrypt.hash(password, 8);
-  // console.log(pass);
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }

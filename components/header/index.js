@@ -1,4 +1,4 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 import React from 'react'
 import logo from 'images/logo.png'
 import Image from 'next/image'
@@ -6,7 +6,7 @@ import { Navbar } from 'flowbite-react'
 
 function Header() {
   return (
-    <div className='w-100 border-b-4 fixed-top bg-white'>
+    <div className='w-100 border-b-4 bg-white'>
       <Navbar
         fluid={true}
         rounded={true}
@@ -27,10 +27,13 @@ function Header() {
           <Navbar.Link href="/candidate" className='font-bold border-0'>
             Candidates+
           </Navbar.Link>
-          <Navbar.Link href="/navbars" className='font-bold border-0'>
+          <Navbar.Link href="/auth/login" className='font-bold border-0'>
             Sign In
           </Navbar.Link>
-          <Navbar.Link href="/navbars" className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white">
+          <Navbar.Link
+            href="/auth/register"
+            className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white"
+          >
             Sign Up
           </Navbar.Link>
         </Navbar.Collapse>

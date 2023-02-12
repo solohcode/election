@@ -2,6 +2,7 @@ import { actionTypes } from './action';
 
 export const initState = {
 	loading: false,
+  isUserUpdated: true,
 	agents: [],
   total: 0,
 };
@@ -12,6 +13,11 @@ function reducer(state = initState, action) {
       return {
         ...state,
         ...{ agents: action.payload.data, total: action.payload.total},
+      };
+    case actionTypes.CHECK_USER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        ...{ isUserUpdated: action.payload},
       };
     case actionTypes.LOADING:
       return {

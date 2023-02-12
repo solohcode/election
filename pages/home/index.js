@@ -6,8 +6,8 @@ import sanwolu from 'images/sanwolu.png'
 import { Bounce, Fade } from 'react-reveal'
 import { Button } from 'flowbite-react'
 import { FiArrowUpRight } from 'react-icons/fi'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+// import Header from '@/components/header'
+// import Footer from '@/components/footer'
 
 function HomePage() {
   const [dateCountDown, setDateCountDown] = useState({
@@ -44,7 +44,6 @@ function HomePage() {
   } = dateCountDown
   return (
     <>
-      <Header />
       <div className='w-full'>
         <div className='w-full'>
           <Fade big>
@@ -247,7 +246,6 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

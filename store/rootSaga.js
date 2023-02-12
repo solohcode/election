@@ -8,6 +8,7 @@ import pollingSaga from './pollingunit/saga';
 import stateSaga from './states/saga';
 import agentSaga from './agent/saga';
 import partySaga from './party/saga';
+import reportSaga from './report/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     stateSaga(),
     agentSaga(),
     partySaga(),
+    reportSaga(),
   ]);
 }

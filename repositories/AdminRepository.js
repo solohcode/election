@@ -58,16 +58,17 @@ class AdminRepository {
 	}
 
 	handleResponse(response) {
-		// console.log(response);
+		console.log(response);
 		if(response.status === 500) {
-			timeOut()
+			// timeOut()
 			return false;
 		}
 		return response.text().then((text) => {
 			let data = text && JSON?.parse(text);
 			const message = data?.message || text;
 			if (message === "invalid token" || message === "jwt malfomed" || message === "jwt expired") {
-				timeOut()
+				// timeOut()
+				console.log(message)
 			}
 			return data;
 		}).catch(err => console.log(err, "error"))

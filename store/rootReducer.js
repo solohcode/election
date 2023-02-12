@@ -8,6 +8,7 @@ import polling from './pollingunit/reducer';
 import states from './states/reducer';
 import agent from './agent/reducer';
 import party from './party/reducer';
+import report from './report/reducer';
 
 export default combineReducers({
 	auth,
@@ -19,4 +20,5 @@ export default combineReducers({
 	states,
 	agent,
 	party,
+	report,
 });

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import Head from 'next/head';
-import FooterCopyright from '~/components/shared/footers/FooterCopyright';
-import MenuSidebar from '~/components/shared/menus/MenuSidebar';
-import WidgetUserWelcome from '~/components/shared/widgets/WidgetUserWelcome';
+// import FooterCopyright from '~/components/shared/footers/FooterCopyright';
+import MenuSidebar from '@/components/shared/menus/MenuSidebar';
+import WidgetUserWelcome from '@/components/shared/widgets/WidgetUserWelcome';
 // import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Router from 'next/router';
 import HeaderMobile from '../shared/headers/HeaderMobile';
@@ -33,7 +33,7 @@ const ContainerDefault = ({ children, title }) => {
                   </div>
                 </div>
                 <div className="ps-sidebar__footer">
-                  <FooterCopyright />
+                  {/* <FooterCopyright /> */}
                 </div>
               </div>
             </div>

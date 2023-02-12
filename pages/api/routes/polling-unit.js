@@ -1,11 +1,17 @@
 import httpStatus from "http-status";
-import { createRouter } from "next-connect";
+import router from "next-connect";
 import { getLoggedInUser } from "../middleware/auth";
 const PollingUnit = require("../models/polling_units.model");
 require("../models/states.model");
-const router = createRouter();
 
-router
+const handler = router({
+  onError: (err, req, res, next) => {
+    res.status(500).end(err.message);
+  },
+  onNoMatch: (req, res) => {
+    res.status(404).end("Page is not found");
+  },
+})
   .use(async (req, res, next) => {
     if (!req.headers.authorization) return res.status(401).end("User not authorized");
     await getLoggedInUser(req.headers.authorization);
@@ -46,13 +52,14 @@ router
   .put(
     async (req, res) => {
       try {
-        const { id, status } = req.body;
+        const { id, reg_voters } = req.body;
         const filter = { _id: id };
-        const update = { status };
+        const update = { reg_voters };
         const data = await PollingUnit.findOneAndUpdate(filter, update, {
           new: true
         });
-        return res.json({ data, status: true, message: `unit updated` });
+        console.log(data)
+        return res.json({ data, status: true, message: `voters register updated` });
       } catch (error) {
         return res.json({ status: false, message: error.message});
       }
@@ -71,13 +78,4 @@ router
     }
   );
 
-// create a handler from router with custom
-// onError and onNoMatch
-export default router.handler({
-  onError: (err, req, res, next) => {
-    res.status(500).end(err.message);
-  },
-  onNoMatch: (req, res) => {
-    res.status(404).end("Page is not found");
-  },
-});
+  export default handler

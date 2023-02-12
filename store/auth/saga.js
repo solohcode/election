@@ -27,7 +27,7 @@ function* loginSaga({payload}) {
 			localStorage.setItem("electionToken", JSON.stringify(result.tokens))
 			localStorage.setItem("electionData", JSON.stringify(result.user))
 			yield put(setShow(false))
-			Router.push('/election-results');
+			Router.push('/dashboard');
 		}else{
 			modalWarning("Log in error", result?.message);
 		}

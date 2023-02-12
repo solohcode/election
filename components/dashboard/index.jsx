@@ -3,16 +3,18 @@ import React, { useEffect } from 'react'
 import { Col, Row } from 'reactstrap';
 import CardStatics from '../shared/cards/CardStatics';
 import { toggleDrawerMenu } from '../../store/app/action';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import 'react-responsive-modal/styles.css';
+import Modal from 'react-responsive-modal';
+import Link from 'next/link';
+import { checkUserUpdate } from '@/store/agent/action';
 
-const Dashboard = () => {
-	// const [data, setData] = useState({})
+const Dashboard = ({isUserUpdated}) => {
   const dispatch = useDispatch();
 
 	useEffect(() => {
-		// const d = JSON.parse(localStorage.getItem("electionData"))
-		// setData(d);
 		dispatch(toggleDrawerMenu(false));
+    dispatch(checkUserUpdate());
 	}, []);
 
 	return (
@@ -67,9 +69,23 @@ const Dashboard = () => {
           what is all about."
         />
       </Col>
+      <Modal open={isUserUpdated} onClose={() => {}} center>
+        <div className="modal-card">
+          <img src="/svg/agent-form.svg" alt="form" width={100} height={100} />
+          <span>Complete</span>
+          <h6 className="text">Agent Form</h6>
+          <Link href='/agent'>
+            <img src="/svg/circle-arrow.svg" alt="circle-arrow" className='img' />
+          </Link>
+        </div>
+      </Modal>
     </Row>
 	)
 }
 
+const mapStateToProps = ({ dispatch, agent }) => ({
+	dispatch,
+	isUserUpdated: agent.isUserUpdated,
+})
 
-export default Dashboard
+export default connect(mapStateToProps)(Dashboard)

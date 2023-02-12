@@ -1,16 +1,22 @@
 import httpStatus from "http-status";
-import { createRouter } from "next-connect";
+import router from "next-connect";
 import { getLoggedInUser } from "../middleware/auth";
 const Agent = require("../models/user.model");
-const router = createRouter();
 
-router
+const handler = router({
+  onError: (err, req, res, next) => {
+    res.status(500).end(err.message);
+  },
+  onNoMatch: (req, res) => {
+    res.status(404).end("Page is not found");
+  },
+})
   .use(async (req, res, next) => {
     if (!req.headers.authorization) return res.status(401).end("User not authorized");
     const loggedinUser = await getLoggedInUser(req.headers.authorization);
     if (loggedinUser.user_type !== 'admin')
       return res.json({ status: false, message: `Only admin can access this route` }); 
-    await next();
+    next();
   })
   .get(async (req, res) => {
     try {
@@ -63,13 +69,4 @@ router
     }
   );
 
-// create a handler from router with custom
-// onError and onNoMatch
-export default router.handler({
-  onError: (err, req, res, next) => {
-    res.status(500).end(err.message);
-  },
-  onNoMatch: (req, res) => {
-    res.status(404).end("Page is not found");
-  },
-});
+  export default handler

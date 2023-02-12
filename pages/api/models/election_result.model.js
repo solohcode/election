@@ -29,6 +29,9 @@ const resultSchema = mongoose.Schema(
     },
     accredited: {
       type: String,
+    },
+    void: {
+      type: String,
     }
   },
   {

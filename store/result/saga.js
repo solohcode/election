@@ -1,10 +1,11 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { actionTypes, getAggregateResultsSuccess, getChartData, getResults, getResultsSuccess, setLoader } from './action';
 import { modalSuccess, modalWarning, timeOut } from '../utilities';
-import AdminRepository from '../../repositories/AuthRepository';
+import AdminRepository from '../../repositories/AdminRepository';
 
 function* getResult({payload}) {
 	try {
+		console.log(payload);
 		yield put(setLoader(true));
 		const result = yield call(AdminRepository.getRequests, payload);
 		if(result.status){

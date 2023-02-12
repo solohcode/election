@@ -1,33 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-import { logOut } from '../../../store/auth/action';
+// import { useDispatch } from 'react-redux';
+// import { logOut } from '../../../store/auth/action';
 
 const MenuSidebar = () => {
 	const router = useRouter();
 	const [data, setData] = useState({})
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("electionData"))
 		setData(user)
 	}, [])
 
-	const handleLogout =() =>{
-		dispatch(logOut())
-	}
+	// const handleLogout =() =>{
+	// 	dispatch(logOut())
+	// }
 	const menuItems = [
 		{
 			text: 'Dashboard',
 			url: '/dashboard',
 			icon: '/svg/home.svg',
-			role:['admin', 'agent']
+			role:['agent']
 		},
 		{
 			text: 'Agent Form',
-			url: '/agents',
+			url: '/agent',
 			icon: '/svg/agent-form.svg',
-			role:['admin', 'agent']
+			role:['agent']
+		},
+		{
+			text: 'Result',
+			url: '/election-results',
+			icon: '/svg/home.svg',
+			role:['admin']
 		},
 		{
 			text: 'Voting Exercise',
@@ -53,18 +59,18 @@ const MenuSidebar = () => {
 		// 	icon: 'icon-speed-medium',
 		// 	role:["admin"]
 		// },
-		// {
-		// 	text: 'All Agent',
-		// 	url: '/agents',
-		// 	icon: '/svg/home.svg',
-		// 	role:["admin"]
-		// },
-		// {
-		// 	text: 'Polling Units',
-		// 	url: '/polling-units',
-		// 	icon: '/svg/home.svg',
-		// 	role:['admin']
-		// },
+		{
+			text: 'All Agent',
+			url: '/agents',
+			icon: '/svg/home.svg',
+			role:["admin"]
+		},
+		{
+			text: 'Polling Units',
+			url: '/polling-units',
+			icon: '/svg/home.svg',
+			role:['admin']
+		},
 	];
 
 	return (
@@ -86,10 +92,10 @@ const MenuSidebar = () => {
 					</li>
 			)})}
 			<li >
-				<a onClick={()=>handleLogout()}>
+				<Link href='/logout'>
 					<span><img src='/svg/logout.svg' /></span>
 					Logout
-				</a>
+				</Link>
 			</li>
 		</ul>
 	);

@@ -1,7 +1,7 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { actionTypes, getAllPartiesSuccess, setLoader } from './action';
 import { timeOut } from '../utilities';
-import AdminRepository from '../../repositories/AuthRepository';
+import AdminRepository from '../../repositories/AdminRepository';
 
 function* getAllParties({payload}) {
 	try {

@@ -1,20 +1,15 @@
-<<<<<<< HEAD
 // import Link from 'next/link'
 import React from 'react'
-=======
-import Link from 'next/link'
-import React, { useState } from 'react';
->>>>>>> 8f247121ace840af41ec3328ec78079f146bd9a3
 import logo from 'images/logo.png'
 import Image from 'next/image'
 import { Navbar } from 'flowbite-react'
-import Signup from 'components/auth/register'
+// import Signup from 'components/auth/register'
 
 function Header() {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  // const onOpenModal = () => setOpen(true);
+  // const onCloseModal = () => setOpen(false);
   return (
     <div className='w-100 border-b-4 bg-white'>
       <Navbar
@@ -40,23 +35,16 @@ function Header() {
           <Navbar.Link href="/auth/login" className='font-bold border-0'>
             Sign In
           </Navbar.Link>
-<<<<<<< HEAD
           <Navbar.Link
             href="/auth/register"
             className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white"
           >
-=======
-          <Navbar.Link 
-            className="w-[100px] font-bold border-0 hover:opacity-60 text-center rounded-full bg-gradient-to-br from-red to-dark_red text-white"
-            onClick={onOpenModal}>
-            
->>>>>>> 8f247121ace840af41ec3328ec78079f146bd9a3
             Sign Up
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
 
-     <Signup open={open} onCloseModal={onCloseModal} />
+     {/* <Signup open={open} onCloseModal={onCloseModal} /> */}
 
     </div>
   )

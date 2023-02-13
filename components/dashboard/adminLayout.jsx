@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getDashboardAnalytics } from '../../store/dashboard/action';
 import { toggleDrawerMenu } from '../../store/app/action';
 
-const adminLayout = ({analytics, loading, dispatch}) => {
+const AdminLayout = ({analytics, loading, dispatch}) => {
 	const [data, setData] = useState({})
 
 	const table = [
@@ -143,4 +143,4 @@ const mapStateToProps = ({dispatch, dashboard})=>({
 	dispatch
 })
 
-export default connect(mapStateToProps)(adminLayout)
+export default connect(mapStateToProps)(AdminLayout)

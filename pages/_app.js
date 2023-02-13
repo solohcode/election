@@ -11,7 +11,11 @@ import '../styles/style.scss';
 function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
-  const getLayout = ((page) => <DefaultLayout children={page} />);
+  const getLayout = ((page) =>
+    <DefaultLayout >
+      {page}
+    </DefaultLayout>
+  );
   useEffect(() => {
     setTimeout(function () {
       document.getElementById('__next').classList.add('loaded');

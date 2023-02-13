@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import ContainerDefault from '~/components/layouts/ContainerDefault';
-import FormSearchSimple from '~/components/shared/forms/FormSearchSimple';
-import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
+// import ContainerDefault from '@/components/layouts/ContainerDefault';
+// import FormSearchSimple from '@/components/shared/forms/FormSearchSimple';
+// import HeaderDashboard from '@/components/shared/headers/HeaderDashboard';
 import { connect, useDispatch } from 'react-redux';
-import { toggleDrawerMenu } from '~/store/app/action';
+import { toggleDrawerMenu } from '@/store/app/action';
 import { Table, Pagination, Button } from 'antd';
-import { getAdmin } from '~/store/admin/action';
+import { getAdmin } from '@/store/admin/action';
+import ContainerDashboard from '@/components/layouts/ContainerDashboard';
 
 const Breakdown = ({loading, total}) => {
 
@@ -50,15 +51,11 @@ const Breakdown = ({loading, total}) => {
 	];
 
 	return (
-		<ContainerDefault title="Polling Unit">
-			<HeaderDashboard
-				title="Result Details"
-				description="Election Update"
-			/>
+		<ContainerDashboard title="Polling Unit">
 			<section className="ps-items-listing">
 				<div className="ps-section__header simple">
 					<div className="ps-section__filter">
-						<FormSearchSimple handleSearch={handleSearch} />
+						{/* <FormSearchSimple handleSearch={handleSearch} /> */}
 					</div>
 				</div>
 				<div className="ps-section__content">
@@ -81,7 +78,7 @@ const Breakdown = ({loading, total}) => {
 					</div>
 				</div>
 			</section>
-		</ContainerDefault>
+		</ContainerDashboard>
 	);
 };
 

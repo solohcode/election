@@ -23,7 +23,8 @@ export default async function importExcelData2MongoDB(filePath){
                 G: 'memberId',
                 H: 'pvc',
                 I: 'dob',
-                J: 'password'
+                J: 'password',
+                K: 'polling_unit'
             }
         }]
     });

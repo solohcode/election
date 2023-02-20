@@ -10,7 +10,7 @@ const Index = () => {
 		dispatch(logOut())
 	}
 	return (
-		<ContainerDashboard title="Polling Unit Report" icon='/svg/settings-green.svg'>
+		<ContainerDashboard title="Logout" icon='/svg/logout-green.svg'>
       <div className="logout-card">
         <img src="/logo.png" alt="logo" />
         <hr />

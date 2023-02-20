@@ -12,19 +12,18 @@ import ContainerDashboard from '@/components/layouts/ContainerDashboard';
 const ResultDetails = ({loading, aggregateResult, parties}) => {
 	const { Option } = Select;
 	const router = useRouter();
-	const { tab } = router.query
+	const { asPath } = router
 	const dispatch = useDispatch();
 	const [key, setKey] = useState('lagWest');
 	const [electionType, setElectionType] = useState('presidential');
 	useEffect(() => {
-		setKey(tab);
+		const k = asPath?.split('=')[1]
+		setKey(k);
 		dispatch(toggleDrawerMenu(false));
-	}, [tab]);
+	}, []);
 	
 	useEffect(() => {
-		if(tab){
-			dispatch(getAggregateResults(`results-aggregator?type=${electionType}&by=${key}`));
-		}
+		dispatch(getAggregateResults(`results-aggregator?type=${electionType}&by=${key}`));
 	}, [key, electionType])
 
 	useEffect(() => {
@@ -62,17 +61,6 @@ const ResultDetails = ({loading, aggregateResult, parties}) => {
 		...p
 	];
 
-	const putable = [
-		{
-			title: 'Polling Unit',
-			dataIndex: 'pu',
-			key: 'pu',
-			width: 150,
-			fixed: 'left',
-		},
-		...p
-	];
-
 	const table = [
 		{
 			title: 'Sen. District',
@@ -86,8 +74,64 @@ const ResultDetails = ({loading, aggregateResult, parties}) => {
 
 	const onTabChange = (k) => {
 		setKey(k);
-		// dispatch(getAggregateResults(`results-aggregator?type=${electionType}&by=${k}`));
 	};
+
+	const items = [
+		{
+			key: 'lagWest',
+			label: `Sen. District`,
+			children: (
+				<div className='table-width'>
+					<Table
+						pagination={false}
+						columns={table}
+						dataSource={aggregateResult}
+						rowKey="id"
+						scroll={{
+							x: 1500, y: 500
+						}}
+						loading={loading}
+					/>
+				</div>
+			),
+		},
+		{
+			key: 'lga',
+			label: `Local Govt.`,
+			children: (
+				<div className='table-width'>
+					<Table
+						pagination={false}
+						columns={lgatable}
+						dataSource={aggregateResult}
+						rowKey="id"
+						scroll={{
+							x: 1500, y: 500
+						}}
+						loading={loading}
+					/>
+				</div>
+			),
+		},
+		{
+			key: 'ward',
+			label: `Wards`,
+			children: (
+				<div className='table-width'>
+					<Table
+						pagination={false}
+						columns={wardtable}
+						dataSource={aggregateResult}
+						rowKey="id"
+						scroll={{
+							x: 1500, y: 500
+						}}
+						loading={loading}
+					/>
+				</div>
+			),
+		},
+	];
 
 
 	return (
@@ -101,67 +145,12 @@ const ResultDetails = ({loading, aggregateResult, parties}) => {
 					<Option value="representative">Representative Election</Option>
 				</Select>
 			</div>
-				<Tabs
-					defaultActiveKey={key}
-					onChange={onTabChange}
-					type="card"
-				>
-					<Tabs.TabPane tab="Sen. District" key="lagWest">
-						<div className='table-width'>
-							<Table
-								pagination={false}
-								columns={table}
-								dataSource={aggregateResult}
-								rowKey="id"
-								scroll={{
-									x: 1500, y: 500
-								}}
-								loading={loading}
-							/>
-						</div>
-					</Tabs.TabPane>
-					<Tabs.TabPane tab="Local Govt." key="lga">
-						<div className='table-width'>
-							<Table
-								pagination={false}
-								columns={lgatable}
-								dataSource={aggregateResult}
-								rowKey="id"
-								scroll={{
-									x: 1500, y: 500
-								}}
-								loading={loading}
-							/>
-						</div>
-					</Tabs.TabPane>
-					<Tabs.TabPane tab="Wards" key="ward">
-						<div className='table-width'>
-							<Table
-								pagination={false}
-								columns={wardtable}
-								dataSource={aggregateResult}
-								rowKey="id"
-								scroll={{
-									x: 1500, y: 500
-								}}
-								loading={loading}
-							/>
-						</div>
-					</Tabs.TabPane>
-					<Tabs.TabPane tab="Polling Units" key="pollingUnit">
-						<div className='table-width'>
-							<Table
-								columns={putable}
-								dataSource={aggregateResult}
-								rowKey="id"
-								scroll={{
-									x: 1500, y: 500
-								}}
-								loading={loading}
-							/>
-						</div>
-					</Tabs.TabPane>
-				</Tabs>
+			<Tabs
+				defaultActiveKey={key}
+				onChange={onTabChange}
+				type="card"
+				items={items}
+			/>
 		</ContainerDashboard>
 	);
 };

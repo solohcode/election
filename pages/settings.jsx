@@ -1,9 +1,15 @@
+import { toggleDrawerMenu } from '@/store/app/action';
 import { Form, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Row, Col} from 'reactstrap'
 import ContainerDashboard from '../components/layouts/ContainerDashboard';
 
 const Index = () => {
+	const dispatch = useDispatch();
+  useEffect(() => {
+		dispatch(toggleDrawerMenu(false));
+	}, []);
     const [form] = Form.useForm();
 
     const onFinish = () => {

@@ -1,11 +1,10 @@
 import httpStatus from "http-status";
 import router from "next-connect";
 import { getLoggedInUser } from "../middleware/auth";
-// const Agent = require("../models/user.model");
+const PollingUint = require("../models/polling_units.model");
 import multer from 'multer';
 import importExcelData2MongoDB from "../services/ExcelFileImport";
 import { createUser } from "../services/user.service";
-// import { createUser } from "@/store/admin/action";
 // import importExcelData2MongoDB from "../services/ExcelFileImport";
 
 var storage = multer.diskStorage({  
@@ -35,11 +34,35 @@ const handler = router({
   }).use(upload.single("file"))
   .post(async (req, res) => {
     try {
-      // const { body } = req;
       const result = await importExcelData2MongoDB('./public/uploads/' + req.file.filename);
       // console.log(result)
-      result.agent.forEach(async(d) => {
-        await createUser(d);
+      result.agent.forEach(async({
+        email,
+        fullname,
+        user_type,
+        phone,
+        gender,
+        ward,
+        memberId,
+        pvc,
+        dob,
+        password,
+        polling_unit,
+      }) => {
+        const pu = await PollingUint.findOne({ unit_name: polling_unit })
+        await createUser({
+          polling_unit: pu.id,
+          email,
+          fullname,
+          user_type,
+          phone,
+          gender,
+          ward,
+          memberId,
+          pvc,
+          dob,
+          password,
+        });
       })
       res.status(httpStatus.CREATED).send({ message: "New agent created", status: true});
     } catch (error) {

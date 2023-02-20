@@ -42,7 +42,7 @@
             margin-bottom: 0;
         }
         img{
-            display: inline;
+            // display: inline;
         }
         span{
             font-family: 'Ubuntu';
@@ -83,7 +83,7 @@
     background-color: #fff;
 
     > * {
-        flex-basis: 100%;
+        // flex-basis: 100%;
     }
 
     .ps-drawer-toggle {
@@ -96,6 +96,14 @@
         text-align: center;
         img {
             max-height: 30px;
+        }
+        span{
+            font-family: 'Ubuntu';
+            font-style: italic;
+            font-weight: 700;
+            font-size: 36px;
+            line-height: 41px;
+            color: #2CA54C;
         }
     }
 

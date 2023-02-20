@@ -5,42 +5,44 @@ const Party = require("../models/parties.model");
 require("../models/polling_units.model");
 require("../models/parties.model");
 
-const handler = router({
-  onError: (err, req, res, next) => {
-    res.status(500).end(err.message);
-  },
-  onNoMatch: (req, res) => {
-    res.status(404).end("Page is not found");
-  },
-})
+  const handler = router({
+    onError: (err, req, res, next) => {
+      res.status(500).end(err.message);
+    },
+    onNoMatch: (req, res) => {
+      res.status(404).end("Page is not found");
+    },
+  })
   .use(async (req, res, next) => {
     if (!req.headers.authorization) return res.status(401).end("User not authorized");
     await getLoggedInUser(req.headers.authorization);
-    await next();
+    next();
   })
-  .post(
-    async (req, res) => {
-      try {
-        const { body } = req;
-        const user = await getLoggedInUser(req.headers.authorization);
-        const checkResult = await Results.find({user: user.id, election_type: body[0].election_type});
-        if(checkResult.length) {
-          return res.json({status: false, message: 'you have already submit result for this election type'});
-        }else{
-          await Results.create(body);
-          return res.json({status: true, message: 'result created'});
-        }
-      } catch (error) {
-        return res.json({ status: false, message: error.message});
+  .post(async (req, res) => {
+    try {
+      const { body } = req;
+      const user = await getLoggedInUser(req.headers.authorization);
+      const checkResult = await Results.find({
+        user: user.id,
+        election_type: body[0].election_type
+      });
+      if(checkResult.length) {
+        return res.json({status: false, message: 'you have already submitted result for this election type'});
+      }else{
+        await Results.create(body);
+        return res.json({status: true, message: 'result created'});
       }
+    } catch (error) {
+      return res.json({ status: false, message: error.message});
     }
-  )
+  })
   .get(async (req, res) => {
     try {
+      // const user = await getLoggedInUser(req.headers.authorization);
       const {type = 'presidential'} = req.query;
       const parties = await Party.find();
-      const pres = await Results.find({election_type: type})
-      .populate('party').populate('polling_unit');
+      let pres = await Results.find({election_type: type}).populate('party').populate('polling_unit');
+      
       let grandTotal = 0
       const result = parties.map(e => {
         let totalScore = 0;

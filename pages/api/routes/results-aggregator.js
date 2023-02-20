@@ -17,7 +17,7 @@ const handler = router({
   .use(async (req, res, next) => {
     if (!req.headers.authorization) return res.status(401).end("User not authorized");
     await getLoggedInUser(req.headers.authorization);
-    await next();
+    next();
   })
   .get(async (req, res) => {
     try {

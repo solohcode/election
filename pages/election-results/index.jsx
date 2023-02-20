@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ContainerDefault from '@/components/layouts/ContainerDefault';
-import HeaderDashboard from '@/components/shared/headers/HeaderDashboard';
+// import ContainerDefault from '@/components/layouts/ContainerDefault';
+// import HeaderDashboard from '@/components/shared/headers/HeaderDashboard';
 import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '@/store/app/action';
 import { Col, Row } from 'reactstrap';
@@ -15,6 +15,7 @@ import { createResult } from '../../store/result/action';
 import { getAllParties } from '../../store/party/action';
 import ContainerDashboard from '@/components/layouts/ContainerDashboard';
 import DashboardCard from '@/components/shared/cards/DashboardCard';
+import { modalWarning } from '@/store/utilities';
 
 const ResultPage = ({ loading, electionResult, parties }) => {
 	const { Option } = Select;
@@ -22,6 +23,7 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 	const [createModal, setCreateModal] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [userData, setUserData] = useState({});
+	const [accredited, setAccredited] = useState(0);
 	const [result, setResult] = useState([]);
 	const [tempData, setTempData] = useState(null);
 	const [allParty, setAllParty] = useState([]);
@@ -63,21 +65,40 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 		})
 		// console.log(result, data);
 		dispatch(createResult({data, dispatch}))
+		setResult([])
 		setCreateModal(false);
 	}
 
 	const updateResult = (data, action) => {
 		if(action === 'add') {
-			if (data) {
-				setResult(prevData => ([...prevData, data]));
-				form.setFieldsValue({score: 0, party: 'select party'});
-				const filteredParty = allParty.filter(f => f.id !== data.party);
-				setAllParty(filteredParty);
-				setTempData(null);
+			if(!data?.partyName) {
+				modalWarning('Warning', 'Please select party to record')
+				return
+			}
+			if(!accredited) {
+				modalWarning('Warning', 'Please set accredited number')
+				return
+			}
+			let total = result?.reduce((t, d) => {
+				return Number(t) + Number(d?.score) || 0
+			}, 0)
+			total = Number(total) + Number(data?.score || 0)
+			if(Number(accredited) >= total){
+				if (data) {
+					setResult(prevData => ([...prevData, data]));
+					form.setFieldsValue({score: 0, party: 'select party'});
+					const filteredParty = allParty.filter(f => f.id !== data.party);
+					setAllParty(filteredParty);
+					setTempData(null);
+				}
+			} else {
+				modalWarning('Warning', 'Accredited voters can not be more than votes recorded')
 			}
 		}else{
 			const updatedRes = result.filter(re => data !== re.party);
 			setResult(updatedRes);
+			const filteredParty = parties.find(f => f.id === data);
+			setAllParty([...allParty, filteredParty]);
 		}
 	}
 
@@ -97,6 +118,7 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 			title: 'Vote',
 			dataIndex: 'score',
 			key: 'score',
+			render: (s) => s || 0
 		},
 		{
 			title: 'Action',
@@ -125,9 +147,9 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 			key: 'logo',
 			render: (text, datum) => (
 				<span>
-					<img src={`/parties/${text}.jpg`} alt="party-logo" width={20} height={20} />
+					{/* <img src={`/parties/${text}.jpg`} alt="party-logo" width={20} height={20} /> */}
 					<strong> {datum?.name}</strong>
-				</span>)
+				</span>),
 		},
 		{
 			title: 'Vote',
@@ -233,7 +255,7 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 					</Col>
 					<Col sm={6} lg={3} md={3}>
 						<DashboardCard
-							url="/election-results/details?tab=pollingUnit"
+							url="/polling_results"
 							icon="lga.png"
 							color="pink"
 							name="Analysis By Unit"
@@ -243,9 +265,15 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 					</Col>
 				</Row>
 				<div className='mt-4'>
-					<h4 className='mt-5 fs-5 text-center'>Total votes casted {grandTotal}</h4>
+					<h4 className='my-4 fs-5 text-center'>
+						Total votes casted for {electionType} election {grandTotal}
+					</h4>
 					<div className='justify-content-center d-flex'>
-						<Select size='large' placeholder="Select election type" onChange={(e) => setElectionType(e)}>
+						<Select
+							size='large'
+							placeholder="Select election type"
+							onChange={(e) => setElectionType(e)}
+						>
 							<Option value="presidential">Presidential Election</Option>
 							<Option value="governor">Governorship Election</Option>
 							<Option value="assembly">Assembly Election</Option>
@@ -265,7 +293,7 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 			<Modal
 				title="Add polling unit results"
 				style={{ top: 20 }}
-				visible={createModal}
+				open={createModal}
 				centered
 				footer={null}
 				onCancel={() => setCreateModal(false)}
@@ -287,7 +315,12 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 						name="accredited"
 						rules={[{ required: true, message: 'Please input accredited value' }]}
 					>
-						<Input size='large' placeholder='Total voters accredited for this election' type='number' />
+						<Input
+							size='large'
+							placeholder='Total voters accredited for this election'
+							type='number'
+							onChange={(e) => setAccredited(e.target.value)}
+						/>
 					</Form.Item>
 					<Space>
 						<Form.Item
@@ -297,13 +330,17 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 							<Select
 								placeholder="Select party"
 								onChange={(e) => {
-									const p = allParty.find(el => el.id === e)
-									setTempData(prevData => ({...prevData, party: p.id, partyName: p.logo}))
+									const p = allParty.find(el => el?.id === e)
+									setTempData(prevData => ({...prevData, party: p?.id, partyName: p?.logo}))
 								}}
+								style={{ width: 200 }}
 							>
 								{allParty?.map((r) => (
 									<Option key={Math.random()} value={r.id}>
-										<span><img src={`/img/parties/${r.logo}.jpg`} alt="party-logo" width={10} height={10} /> {r.name}</span>
+										<span>
+											{/* <img src={`/parties/${r.logo}.jpg`} alt="party-logo" width={20} height={20} /> */}
+											{r.name}
+										</span>
 									</Option>
 								))}
 							</Select>
@@ -319,11 +356,13 @@ const ResultPage = ({ loading, electionResult, parties }) => {
 							/>
 						</Form.Item>
 						<Form.Item>
-							<Button
-								type='primary'
-								icon={<PlusSquareOutlined />}
+							<button
+								className='ps-btn'
+								type='button'
 								onClick={() => updateResult(tempData, 'add')}
-							/>
+							>
+							  Add
+							</button>
 						</Form.Item>
 					</Space>
 					<Table

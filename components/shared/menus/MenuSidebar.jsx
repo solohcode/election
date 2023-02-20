@@ -17,30 +17,30 @@ const MenuSidebar = () => {
 	// 	dispatch(logOut())
 	// }
 	const menuItems = [
-		{
-			text: 'Dashboard',
-			url: '/dashboard',
-			icon: '/svg/home.svg',
-			role:['agent']
-		},
-		{
-			text: 'Agent Form',
-			url: '/agent',
-			icon: '/svg/agent-form.svg',
-			role:['agent']
-		},
+		// {
+		// 	text: 'Dashboard',
+		// 	url: '/dashboard',
+		// 	icon: '/svg/home.svg',
+		// 	role:['agent']
+		// },
+		// {
+		// 	text: 'Agent Form',
+		// 	url: '/agent',
+		// 	icon: '/svg/agent-form.svg',
+		// 	role:['agent']
+		// },
 		{
 			text: 'Result',
 			url: '/election-results',
 			icon: '/svg/home.svg',
-			role:['admin']
-		},
-		{
-			text: 'Voting Exercise',
-			url: '/voting',
-			icon: '/svg/voting.svg',
 			role:['admin', 'agent']
 		},
+		// {
+		// 	text: 'Voting Exercise',
+		// 	url: '/voting',
+		// 	icon: '/svg/voting.svg',
+		// 	role:['admin', 'agent']
+		// },
 		{
 			text: 'Reports',
 			url: '/reports',
@@ -62,13 +62,13 @@ const MenuSidebar = () => {
 		{
 			text: 'All Agent',
 			url: '/agents',
-			icon: '/svg/home.svg',
+			icon: '/svg/agent-form.svg',
 			role:["admin"]
 		},
 		{
 			text: 'Polling Units',
 			url: '/polling-units',
-			icon: '/svg/home.svg',
+			icon: '/svg/voting.svg',
 			role:['admin']
 		},
 	];

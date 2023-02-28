@@ -18,11 +18,11 @@ const reportSchema = mongoose.Schema(
     },
     image1: {
       type: String,
-      required: true,
+      // required: true,
     },
     image2: {
       type: String,
-      required: true,
+      // required: true,
     },
     reporter: {
       type: String,

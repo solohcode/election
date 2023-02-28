@@ -3,6 +3,7 @@ import { actionTypes } from './action';
 export const initState = {
 	loading: false,
 	reports:[],
+	results:[],
 	total:0
 };
 

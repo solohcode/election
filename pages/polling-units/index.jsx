@@ -85,7 +85,7 @@ const PollingUnitPage = ({loading, total, pollingUnits, states}) => {
 								setEditModal(true);
 								setUnitId(text);
 							}}
-							type="primary"
+							type="danger"
 							icon={<EditOutlined />}
 							size="small"
 						/>

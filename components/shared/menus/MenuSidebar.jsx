@@ -42,9 +42,15 @@ const MenuSidebar = () => {
 		// 	role:['admin', 'agent']
 		// },
 		{
-			text: 'Reports',
-			url: '/reports',
+			text: 'Unit Results',
+			url: '/unit_results',
 			icon: '/svg/report.svg',
+			role:['admin', 'agent']
+		},
+		{
+			text: 'Unit Reports',
+			url: '/reports',
+			icon: '/svg/voting.svg',
 			role:['admin', 'agent']
 		},
 		{
